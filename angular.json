@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ChessWeb3D"
+    }
+  },
+  "defaultProject": "ChessWeb3D",
+  "cli": {
+    "analytics": "c552db67-3b59-4ae1-9241-3d8b0723c5f6"
+  }
 }
