@@ -12,17 +12,21 @@ export class UserCardFormComponent {
     nickname: [null, Validators.required],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder) { }
 
   getNicknameErrorMessage() {
     const nickname = this.userForm.controls.nickname;
 
-    if (nickname.hasError('required')){
+    if (nickname.hasError('required')) {
       return 'You must enter a nickname';
     }
   }
 
-  onSubmit() {
-    console.log('userForm', this.userForm);
+  createRoom() {
+    console.log('userForm Create', this.userForm, event);
+  }
+
+  joinRoom() {
+    console.log('userForm Join', this.userForm, event);
   }
 }
