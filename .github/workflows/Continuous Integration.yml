@@ -12,7 +12,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Test
-      run: npm install; echo n | npm install @angular/cli; npm test -- --no-watch --no-progress --browsers=ChromeHeadless;
+      run: npm install; echo n | npm install @angular/cli; npm test -- --no-watch --no-progress --browsers=ChromeHeadless; npm run e2e -- -c=ci
             
   Build:
 
