@@ -25,12 +25,13 @@ export class UserCardFormComponent {
     const roomName = this.userForm.controls.roomName;
     const roomPassword = this.userForm.controls.roomPassword;
 
-    const invalidInput = (!nickname.hasError('required') &&
-      !roomName.hasError('required') &&
-      !roomPassword.hasError('required'));
+    const invalidInput = (nickname.hasError('required') ||
+      roomName.hasError('required') ||
+      roomPassword.hasError('required'));
 
     if (!invalidInput) {
-      // this.router.navigate(['/room/:id']);
+      const id = "1234"
+      this.router.navigate(['/room', id]);
     } else {
       // Display Error Message
       this.userForm.markAllAsTouched();
