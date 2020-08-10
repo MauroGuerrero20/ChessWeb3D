@@ -11,8 +11,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Run Test and Build
-      run: npm install; echo n | npm install @angular/cli; npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI;
+    - name: Test
+      run: npm install; echo n | npm install @angular/cli; npm test -- --no-watch --no-progress --browsers=ChromeHeadless;
             
   Build:
 
@@ -20,7 +20,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Run Test and Build
+    - name: Build
       run: npm install; echo n | npm install @angular/cli; npm run build
   
   Lint:
@@ -29,5 +29,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Run Test and Build
-      run: npm install; echo n | npm install @angular/cli; ng lint
+    - name: Lint
+      run: npm install; echo n | npm install @angular/cli; npm run lint
