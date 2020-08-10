@@ -12,6 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Run Test
-      run: npm test
+      run: npm install; echo n | npm install -g @angular/cli; npm test
     - name: Build 
-      run: npm build
+      run: npm install; echo n | npm install -g @angular/cli; npm build
