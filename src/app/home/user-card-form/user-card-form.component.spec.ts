@@ -31,8 +31,6 @@ describe('UserCardFormComponent', () => {
     }).compileComponents();
   }));
 
-  
-
   beforeEach(() => {
     fixture = TestBed.createComponent(UserCardFormComponent);
     component = fixture.componentInstance;
