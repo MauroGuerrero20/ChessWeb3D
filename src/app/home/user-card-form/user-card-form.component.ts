@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, } from '@angular/forms';
-import { Router } from "@angular/router"
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-card-form',
@@ -17,7 +17,7 @@ export class UserCardFormComponent {
     roomPassword: [null, Validators.required],
   });
 
-  createJoinRoom() {
+  createJoinRoom(): void {
 
     console.log('userForm', this.userForm);
 
@@ -30,7 +30,7 @@ export class UserCardFormComponent {
       roomPassword.hasError('required'));
 
     if (!invalidInput) {
-      const id = "1234"
+      const id = '1234';
       this.router.navigate(['/room', id]);
     } else {
       // Display Error Message
