@@ -1,0 +1,26 @@
+.full-width {
+  width: 100%;
+}
+
+.margin-auto {
+  margin: auto;
+}
+
+#user-card-room-action {
+  display: flex;
+  justify-content: center;
+}
+
+#user-card {
+  margin: auto;
+  margin-top: 5rem;
+  width: 50%
+}
+
+#user-card-header ::ng-deep .mat-card-header-text {
+  margin: auto;
+}
+
+#form-field-final-input ::ng-deep .mat-form-field-wrapper{
+   margin-bottom: -1em;
+}
