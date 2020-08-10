@@ -6,9 +6,10 @@
   margin: auto;
 }
 
-#user-card-actions {
+#user-card-room-action {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  padding: 0;
 }
 
 #user-card {
@@ -21,6 +22,6 @@
   margin: auto;
 }
 
-#user-nickname-input ::ng-deep .mat-form-field-wrapper{
+#form-field-final-input ::ng-deep .mat-form-field-wrapper{
    margin-bottom: -1em;
 }

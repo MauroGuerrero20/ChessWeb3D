@@ -13,14 +13,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
-import { CreateRoomComponent } from './create-room/create-room.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     UserCardFormComponent,
-    CreateRoomComponent
   ],
   imports: [
     BrowserModule,

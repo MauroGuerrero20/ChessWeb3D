@@ -13,26 +13,27 @@ export class UserCardFormComponent {
 
   userForm = this.fb.group({
     nickname: [null, Validators.required],
+    roomName: [null, Validators.required],
+    roomPassword: [null, Validators.required],
   });
 
+  createJoinRoom() {
 
-  getNicknameErrorMessage() {
+    console.log('userForm', this.userForm);
+
     const nickname = this.userForm.controls.nickname;
+    const roomName = this.userForm.controls.roomName;
+    const roomPassword = this.userForm.controls.roomPassword;
 
-    if (nickname.hasError('required')) {
-      return 'You must enter a nickname';
+    const invalidInput = (!nickname.hasError('required') &&
+      !roomName.hasError('required') &&
+      !roomPassword.hasError('required'));
+
+    if (!invalidInput) {
+      // this.router.navigate(['/room/:id']);
+    } else {
+      // Display Error Message
+      this.userForm.markAllAsTouched();
     }
-  }
-
-  // TODO: Redirect on click instead of using routerLink
-
-  createRoom() {
-    console.log('userForm Create', this.userForm);
-    this.router.navigate(['/create-room'])
-  }
-
-  joinRoom() {
-    console.log('userForm Join', this.userForm);
-    this.router.navigate(['/room/:id'])
   }
 }
