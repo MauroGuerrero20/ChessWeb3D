@@ -23,10 +23,10 @@ export class UserCardFormComponent {
   }
 
   createRoom() {
-    console.log('userForm Create', this.userForm, event);
+    console.log('userForm Create', this.userForm);
   }
 
   joinRoom() {
-    console.log('userForm Join', this.userForm, event);
+    console.log('userForm Join', this.userForm);
   }
 }

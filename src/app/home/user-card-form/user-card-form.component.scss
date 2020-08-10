@@ -17,6 +17,10 @@
   width: 50%
 }
 
+#user-card-header ::ng-deep .mat-card-header-text {
+  margin: auto;
+}
+
 #user-nickname-input ::ng-deep .mat-form-field-wrapper{
    margin-bottom: -1em;
 }
