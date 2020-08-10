@@ -5,13 +5,29 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  Test:
 
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - name: Run Test
-      run: npm install; echo n | npm install @angular/cli; npm test
-    - name: Build 
-      run: npm install; echo n | npm install @angular/cli; npm build
+    - name: Run Test and Build
+      run: npm install; echo n | npm install @angular/cli; npm test -- --no-watch --no-progress --browsers=ChromeHeadlessCI;
+            
+  Build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run Test and Build
+      run: npm install; echo n | npm install @angular/cli; npm run build
+  
+  Lint:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run Test and Build
+      run: npm install; echo n | npm install @angular/cli; ng lint
