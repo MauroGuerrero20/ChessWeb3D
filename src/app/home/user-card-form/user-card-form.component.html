@@ -7,12 +7,13 @@
 			<mat-form-field id="user-nickname-input" appearance="outline" required class="full-width">
 				<mat-label>Nickname</mat-label>
 				<input matInput placeholder="Nickname" formControlName="nickname" required >
-        <mat-error *ngIf="userForm.controls.nickname.invalid">{{getNicknameErrorMessage()}}</mat-error>
+				<mat-error *ngIf="userForm.controls.nickname.invalid">{{getNicknameErrorMessage()}}</mat-error>
 			</mat-form-field>
 		</mat-card-content>
 		<mat-card-actions id="user-card-actions" class="margin-auto">
-			<a mat-raised-button color="primary" type="button" (click)="createRoom()" routerLink="/create-room" routerLinkActive="active"> Create Room</a>
-      <a mat-raised-button color="primary" type="button" (click)="joinRoom()" routerLink="/room:id" routerLinkActive="active">Join Room</a>
+			<a mat-raised-button color="primary" type="button" (click)="createRoom()"> Create
+				Room</a>
+			<a mat-raised-button color="primary" type="button" (click)="joinRoom()">Join Room</a>
 		</mat-card-actions>
 	</mat-card>
 </form>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, Validators, } from '@angular/forms';
+import { Router } from "@angular/router"
 
 @Component({
   selector: 'app-user-card-form',
@@ -8,11 +9,12 @@ import { FormBuilder, Validators, FormControl } from '@angular/forms';
 })
 export class UserCardFormComponent {
 
+  constructor(private fb: FormBuilder, private router: Router) { }
+
   userForm = this.fb.group({
     nickname: [null, Validators.required],
   });
 
-  constructor(private fb: FormBuilder) { }
 
   getNicknameErrorMessage() {
     const nickname = this.userForm.controls.nickname;
@@ -22,11 +24,15 @@ export class UserCardFormComponent {
     }
   }
 
+  // TODO: Redirect on click instead of using routerLink
+
   createRoom() {
     console.log('userForm Create', this.userForm);
+    this.router.navigate(['/create-room'])
   }
 
   joinRoom() {
     console.log('userForm Join', this.userForm);
+    this.router.navigate(['/room/:id'])
   }
 }
