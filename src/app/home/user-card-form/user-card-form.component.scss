@@ -1,0 +1,22 @@
+.full-width {
+  width: 100%;
+}
+
+.margin-auto {
+  margin: auto;
+}
+
+#user-card-actions {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#user-card {
+  margin: auto;
+  margin-top: 5rem;
+  width: 50%
+}
+
+#user-nickname-input ::ng-deep .mat-form-field-wrapper{
+   margin-bottom: -1em;
+}
