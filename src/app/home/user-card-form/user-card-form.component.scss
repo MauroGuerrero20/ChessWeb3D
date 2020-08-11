@@ -6,18 +6,18 @@
   margin: auto;
 }
 
-#user-card-room-action {
+#room-card-action {
   display: flex;
   justify-content: center;
 }
 
-#user-card {
+#room-card {
   margin: auto;
   margin-top: 5rem;
   width: 50%
 }
 
-#user-card-header ::ng-deep .mat-card-header-text {
+#room-card-header ::ng-deep .mat-card-header-text {
   margin: auto;
 }
 
