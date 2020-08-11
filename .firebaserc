@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "chessweb3d": {
+      "hosting": {
+        "ChessWeb3D": [
+          "chessweb3d"
+        ]
+      }
+    }
+  }
+}
