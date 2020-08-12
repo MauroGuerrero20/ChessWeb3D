@@ -2,6 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import sha256 from 'crypto-js/sha256';
 
+interface GameRoom {
+  players: string[];
+  roomName: string;
+  roomPassword: string;
+  expiresAt: string;
+}
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,7 +20,48 @@ export class AppComponent implements OnInit {
 
   constructor(private firestore: AngularFirestore) { }
 
-  async ngOnInit(): Promise<any> {
+  deleteExpiredRoomBrowser(): void {
+    const userRoomsStr: string = window.localStorage.getItem('userRooms');
+
+    if (userRoomsStr) {
+      const userRooms = userRoomsStr.split('|');
+
+      let activeRooms: GameRoom[] = []; // Non-expired rooms
+
+      let expiredRoom: boolean = false;
+
+      for (const roomStr of userRooms) {
+
+        if (!roomStr) {
+          continue;
+        }
+
+        const room: GameRoom = JSON.parse(roomStr);
+
+        if (Number(room.expiresAt) < Date.now()) {
+          window.localStorage.clear();
+          expiredRoom = true;
+        }
+        else {
+          activeRooms.push(room)
+        }
+      }
+
+      if (expiredRoom) {
+        const newUserRoomStr = '';
+
+        for (const room of activeRooms) {
+          newUserRoomStr.concat(`${JSON.stringify(room)}|`);
+        }
+
+        if (newUserRoomStr) {
+          window.localStorage.setItem('userRooms', newUserRoomStr);
+        }
+      }
+    }
+  }
+
+  async deleteExpiredRoomFirestore(): Promise<any> {
 
     const roomsCollections = this.firestore.collection('rooms');
 
@@ -29,5 +77,11 @@ export class AppComponent implements OnInit {
           .catch(err => console.error(err));
       }
     });
+
+  }
+
+  ngOnInit() {
+    this.deleteExpiredRoomBrowser();
+    this.deleteExpiredRoomFirestore();
   }
 }

@@ -50,6 +50,27 @@ export class UserCardFormComponent {
     return false;
   }
 
+  storeGameRoomBrowser(gameRoom: GameRoom): void {
+    const userRoomsStr: string = window.localStorage.getItem('userRooms') || '';
+
+    if (userRoomsStr) {
+      const userRooms = userRoomsStr.split('|');
+
+      for (const roomStr of userRooms) {
+        const room: GameRoom = JSON.parse(roomStr);
+        
+        if (room.roomName === gameRoom.roomName && 
+          room.roomPassword === gameRoom.roomPassword){
+            return;
+        }
+      }
+      window.localStorage.setItem('userRooms', userRoomsStr.concat(`${JSON.stringify(gameRoom)}|`));
+    }
+    else {
+      window.localStorage.setItem('userRooms', userRoomsStr.concat(`${JSON.stringify(gameRoom)}|`));
+    }
+  }
+
   async fetchGameRoomFirestore(gameRoom: GameRoom): Promise<any> {
 
     const docRef = this.firestore.collection('rooms').doc(this.getRoomId(gameRoom));
@@ -123,12 +144,17 @@ export class UserCardFormComponent {
         gameRoom.players = [...retrivedGameRoom.players, nickname.value];
         await this.updateGameRoomFirestore(gameRoom);
 
+        this.storeGameRoomBrowser(gameRoom);
+
         this.router.navigate(['/room', sha256(this.getRoomId(gameRoom)).toString()]);
 
       } else if (isFull) {
         this.roomFull = true;
       } else {
+
         await this.storeGameRoomFirestore(gameRoom);
+        this.storeGameRoomBrowser(gameRoom);
+
         this.router.navigate(['/room', sha256(this.getRoomId(gameRoom)).toString()]);
       }
 
