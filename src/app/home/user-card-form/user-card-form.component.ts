@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, } from '@angular/core';
 import { FormBuilder, Validators, } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -8,6 +8,7 @@ interface GameRoom {
   players: string[];
   roomName: string;
   roomPassword: string;
+  expiresAt: string;
 }
 
 @Component({
@@ -29,6 +30,14 @@ export class UserCardFormComponent {
 
   getRoomId(gameRoom: GameRoom): string {
     return sha256(gameRoom.roomName + gameRoom.roomPassword).toString();
+  }
+
+  // Game Room expires after a day
+  getExpirationDate() {
+    const today = new Date();
+    const tomorrow = new Date()
+    tomorrow.setDate(today.getDate() + 1);
+    return tomorrow.getTime();
   }
 
   async fetchGameRoomFirestore(gameRoom: GameRoom): Promise<any> {
@@ -87,6 +96,7 @@ export class UserCardFormComponent {
         players: [nickname.value],
         roomName: roomName.value,
         roomPassword: roomPassword.value,
+        expiresAt: this.getExpirationDate().toString(),
       };
 
       const retrivedGameRoom: GameRoom = await this.fetchGameRoomFirestore(gameRoom);
