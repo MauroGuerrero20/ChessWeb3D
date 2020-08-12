@@ -40,6 +40,16 @@ export class UserCardFormComponent {
     return tomorrow.getTime();
   }
 
+  rejoiningRoom(gameRoom: GameRoom, player: string): boolean {
+
+    for (const roomPlayer of gameRoom.players) {
+      if (roomPlayer === player) {
+        return true
+      }
+    }
+    return false;
+  }
+
   async fetchGameRoomFirestore(gameRoom: GameRoom): Promise<any> {
 
     const docRef = this.firestore.collection('rooms').doc(this.getRoomId(gameRoom));
@@ -101,14 +111,21 @@ export class UserCardFormComponent {
 
       const retrivedGameRoom: GameRoom = await this.fetchGameRoomFirestore(gameRoom);
 
-      if (retrivedGameRoom !== null && retrivedGameRoom.players.length < 2) {
+      const joiningRoom: boolean = (retrivedGameRoom !== null &&
+        retrivedGameRoom.players.length < 2);
+
+      const isFull = (retrivedGameRoom !== null &&
+        retrivedGameRoom.players.length >= 2 &&
+        !this.rejoiningRoom(retrivedGameRoom, nickname.value))
+
+      if (joiningRoom) {
 
         gameRoom.players = [...retrivedGameRoom.players, nickname.value];
         await this.updateGameRoomFirestore(gameRoom);
 
         this.router.navigate(['/room', sha256(this.getRoomId(gameRoom)).toString()]);
 
-      } else if (retrivedGameRoom !== null && retrivedGameRoom.players.length >= 2) {
+      } else if (isFull) {
         this.roomFull = true;
       } else {
         await this.storeGameRoomFirestore(gameRoom);
