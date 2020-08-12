@@ -19,6 +19,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RoomComponent } from './room/room.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { RoomComponent } from './room/room.component';
     HomeComponent,
     UserCardFormComponent,
     RoomComponent,
+    ErrorPageComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
