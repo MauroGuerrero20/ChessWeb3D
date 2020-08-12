@@ -26,9 +26,9 @@ export class AppComponent implements OnInit {
     if (userRoomsStr) {
       const userRooms = userRoomsStr.split('|');
 
-      let activeRooms: GameRoom[] = []; // Non-expired rooms
+      const activeRooms: GameRoom[] = []; // Non-expired rooms
 
-      let expiredRoom: boolean = false;
+      let expiredRoom = false;
 
       for (const roomStr of userRooms) {
 
@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
           expiredRoom = true;
         }
         else {
-          activeRooms.push(room)
+          activeRooms.push(room);
         }
       }
 
@@ -80,7 +80,7 @@ export class AppComponent implements OnInit {
 
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.deleteExpiredRoomBrowser();
     this.deleteExpiredRoomFirestore();
   }

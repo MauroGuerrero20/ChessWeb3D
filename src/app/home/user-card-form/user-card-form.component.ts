@@ -44,7 +44,7 @@ export class UserCardFormComponent {
 
     for (const roomPlayer of gameRoom.players) {
       if (roomPlayer === player) {
-        return true
+        return true;
       }
     }
     return false;
@@ -58,10 +58,10 @@ export class UserCardFormComponent {
 
       for (const roomStr of userRooms) {
         const room: GameRoom = JSON.parse(roomStr);
-        
-        if (room.roomName === gameRoom.roomName && 
-          room.roomPassword === gameRoom.roomPassword){
-            return;
+
+        if (room.roomName === gameRoom.roomName &&
+          room.roomPassword === gameRoom.roomPassword) {
+          return;
         }
       }
       window.localStorage.setItem('userRooms', userRoomsStr.concat(`${JSON.stringify(gameRoom)}|`));
@@ -137,7 +137,7 @@ export class UserCardFormComponent {
 
       const isFull = (retrivedGameRoom !== null &&
         retrivedGameRoom.players.length >= 2 &&
-        !this.rejoiningRoom(retrivedGameRoom, nickname.value))
+        !this.rejoiningRoom(retrivedGameRoom, nickname.value));
 
       if (joiningRoom) {
 
