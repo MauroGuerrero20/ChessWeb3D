@@ -33,9 +33,9 @@ export class UserCardFormComponent {
   }
 
   // Game Room expires after a day
-  getExpirationDate() {
+  getExpirationDate(): number {
     const today = new Date();
-    const tomorrow = new Date()
+    const tomorrow = new Date();
     tomorrow.setDate(today.getDate() + 1);
     return tomorrow.getTime();
   }

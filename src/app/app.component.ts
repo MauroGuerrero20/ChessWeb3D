@@ -9,11 +9,13 @@ import sha256 from 'crypto-js/sha256';
 })
 export class AppComponent implements OnInit {
 
+  title = 'ChessWeb3D';
+
   constructor(private firestore: AngularFirestore) { }
 
-  async ngOnInit() {
+  async ngOnInit(): Promise<any> {
 
-    const roomsCollections = this.firestore.collection('rooms')
+    const roomsCollections = this.firestore.collection('rooms');
 
     const roomsQuerySnapshot = await roomsCollections.get().toPromise();
 
@@ -24,11 +26,8 @@ export class AppComponent implements OnInit {
         const roomId: string = sha256(room.data().roomName + room.data().roomPassword).toString();
 
         roomsCollections.doc(roomId).delete()
-          .then(() => console.log("Success Deletion"))
           .catch(err => console.error(err));
       }
     });
   }
-
-  title = 'ChessWeb3D';
 }
