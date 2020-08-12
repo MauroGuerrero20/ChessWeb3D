@@ -1,6 +1,6 @@
 <form [formGroup]="roomForm" novalidate autocomplete="off">
-	<mat-card id="room-card">
-		<mat-card-header id="room-card-header">
+	<mat-card id="user-card">
+		<mat-card-header id="user-card-header">
 			<mat-card-title>Create/Join a Room</mat-card-title>
 		</mat-card-header>
 		<mat-card-content>
@@ -9,19 +9,22 @@
 				<input matInput placeholder="Nickname" formControlName="nickname" required >
 				<mat-error *ngIf="roomForm.controls.nickname.invalid">You must enter a nickname.</mat-error>
 			</mat-form-field>
-      <mat-form-field appearance="outline" class="full-width">
+			<mat-form-field appearance="outline" class="full-width">
 				<mat-label>Room Name</mat-label>
 				<input matInput placeholder="Room Name" formControlName="roomName" required >
 				<mat-error *ngIf="roomForm.controls.roomName.invalid">You must enter a room name.</mat-error>
 			</mat-form-field>
-      <mat-form-field id="form-field-final-input" appearance="outline" class="full-width">
+			<mat-form-field id="form-field-final-input" appearance="outline" class="full-width">
 				<mat-label>Room Password</mat-label>
 				<input matInput placeholder="Room Password" formControlName="roomPassword" required >
 				<mat-error *ngIf="roomForm.controls.roomPassword.invalid">You must enter a room password.</mat-error>
 			</mat-form-field>
 		</mat-card-content>
-		<mat-card-actions id="room-card-action" class="margin-auto">
+		<mat-card-actions id="user-card-action" class="margin-auto">
 			<button mat-raised-button color="primary" type="button" (click)="createJoinRoom()">Create/Join Room</button>
 		</mat-card-actions>
+		<div id="room-full-error" class="center-contents" *ngIf="roomFull">
+			<mat-error *ngIf="roomFull">Room is Full.</mat-error>
+		</div>
 	</mat-card>
 </form>

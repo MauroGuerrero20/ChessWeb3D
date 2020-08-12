@@ -1,3 +1,12 @@
+.center-contents {
+  display: flex;
+  justify-content: center;
+}
+
+#form-field-final-input ::ng-deep .mat-form-field-wrapper{
+   margin-bottom: -1em;
+}
+
 .full-width {
   width: 100%;
 }
@@ -6,21 +15,23 @@
   margin: auto;
 }
 
-#room-card-action {
-  display: flex;
-  justify-content: center;
+#room-full-error {
+  margin-top: 0.7rem;
+  margin-bottom: 0.3rem;
 }
 
-#room-card {
+#user-card {
   margin: auto;
   margin-top: 5rem;
   width: 50%
 }
 
-#room-card-header ::ng-deep .mat-card-header-text {
-  margin: auto;
+#user-card-action {
+  display: flex;
+  justify-content: center;
+  margin-bottom: .1rem;
 }
 
-#form-field-final-input ::ng-deep .mat-form-field-wrapper{
-   margin-bottom: -1em;
+#user-card-header ::ng-deep .mat-card-header-text {
+  margin: auto;
 }
