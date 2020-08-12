@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators, } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AngularFirestore } from "@angular/fire/firestore";
+import { AngularFirestore } from '@angular/fire/firestore';
 import sha256 from 'crypto-js/sha256';
 
 interface GameRoom {
-  players: string[],
-  roomName: string,
-  roomPassword: string,
+  players: string[];
+  roomName: string;
+  roomPassword: string;
 }
 
 @Component({
@@ -17,9 +17,7 @@ interface GameRoom {
 })
 export class UserCardFormComponent {
 
-  constructor(private fb: FormBuilder,
-    private router: Router,
-    private firestore: AngularFirestore) { }
+  constructor(private fb: FormBuilder, private router: Router, private firestore: AngularFirestore) { }
 
   roomForm = this.fb.group({
     nickname: [null, Validators.required],
@@ -33,9 +31,9 @@ export class UserCardFormComponent {
     return sha256(gameRoom.roomName + gameRoom.roomPassword).toString();
   }
 
-  async fetchGameRoomFirestore(gameRoom: GameRoom) {
+  async fetchGameRoomFirestore(gameRoom: GameRoom): Promise<any> {
 
-    const docRef = this.firestore.collection('rooms').doc(this.getRoomId(gameRoom))
+    const docRef = this.firestore.collection('rooms').doc(this.getRoomId(gameRoom));
 
     const retrivedGameRoom = await docRef.get().toPromise()
       .then((doc) => {
@@ -53,7 +51,7 @@ export class UserCardFormComponent {
     return retrivedGameRoom;
   }
 
-  async storeGameRoomFirestore(gameRoom: GameRoom) {
+  async storeGameRoomFirestore(gameRoom: GameRoom): Promise<any> {
 
     const docRef = this.firestore.collection('rooms').doc(this.getRoomId(gameRoom));
 
@@ -63,7 +61,7 @@ export class UserCardFormComponent {
       });
   }
 
-  async updateGameRoomFirestore(gameRoom: GameRoom) {
+  async updateGameRoomFirestore(gameRoom: GameRoom): Promise<any> {
 
     const docRef = this.firestore.collection('rooms').doc(this.getRoomId(gameRoom));
 
@@ -73,7 +71,7 @@ export class UserCardFormComponent {
       .catch(err => console.log(err));
   }
 
-  async createJoinRoom() {
+  async createJoinRoom(): Promise<any> {
 
     const nickname = this.roomForm.controls.nickname;
     const roomName = this.roomForm.controls.roomName;
@@ -89,7 +87,7 @@ export class UserCardFormComponent {
         players: [nickname.value],
         roomName: roomName.value,
         roomPassword: roomPassword.value,
-      }
+      };
 
       const retrivedGameRoom: GameRoom = await this.fetchGameRoomFirestore(gameRoom);
 
@@ -106,8 +104,6 @@ export class UserCardFormComponent {
         await this.storeGameRoomFirestore(gameRoom);
         this.router.navigate(['/room', 1234]);
       }
-
-      console.log("Hello", await this.fetchGameRoomFirestore(gameRoom))
 
     } else {
       // Display Form Error Message
