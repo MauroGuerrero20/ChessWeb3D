@@ -106,13 +106,13 @@ export class UserCardFormComponent {
         gameRoom.players = [...retrivedGameRoom.players, nickname.value];
         await this.updateGameRoomFirestore(gameRoom);
 
-        this.router.navigate(['/room', 1234]);
+        this.router.navigate(['/room', sha256(this.getRoomId(gameRoom)).toString()]);
 
       } else if (retrivedGameRoom !== null && retrivedGameRoom.players.length >= 2) {
         this.roomFull = true;
       } else {
         await this.storeGameRoomFirestore(gameRoom);
-        this.router.navigate(['/room', 1234]);
+        this.router.navigate(['/room', sha256(this.getRoomId(gameRoom)).toString()]);
       }
 
     } else {
