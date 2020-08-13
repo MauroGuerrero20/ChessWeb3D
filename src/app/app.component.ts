@@ -23,11 +23,11 @@ export class AppComponent implements OnInit {
   constructor(private firestore: AngularFirestore) { }
 
   deleteExpiredRoomBrowser(): void {
+
     const userRoomsStr: string = window.localStorage.getItem('userRooms');
 
     if (userRoomsStr) {
       const userRooms = userRoomsStr.split('|');
-
       const activeRooms: GameRoom[] = []; // Non-expired rooms
 
       let expiredRoom = false;
@@ -37,7 +37,6 @@ export class AppComponent implements OnInit {
         if (!roomStr) {
           continue;
         }
-
         const room: GameRoom = JSON.parse(roomStr);
 
         if (Number(room.expiresAt) < Date.now()) {
@@ -55,7 +54,6 @@ export class AppComponent implements OnInit {
         for (const room of activeRooms) {
           newUserRoomStr.concat(`${JSON.stringify(room)}|`);
         }
-
         if (newUserRoomStr) {
           window.localStorage.setItem('userRooms', newUserRoomStr);
         }
@@ -66,20 +64,21 @@ export class AppComponent implements OnInit {
   async deleteExpiredRoomFirestore(): Promise<any> {
 
     const roomsCollections = this.firestore.collection('rooms');
-
     const roomsQuerySnapshot = await roomsCollections.get().toPromise();
 
-    roomsQuerySnapshot.docs.forEach(room => {
-      // Expired Room
-      if (Number(room.data().expiresAt) < Date.now()) {
+    roomsQuerySnapshot.docs.forEach(roomSnapshot => {
 
-        const roomId: string = sha256(room.data().roomName + room.data().roomPassword).toString();
+      const room = roomSnapshot.data();
+
+      // Expired Room
+      if (Number(room.expiresAt) < Date.now()) {
+
+        const roomId: string = sha256(room.roomName + room.roomPassword).toString();
 
         roomsCollections.doc(roomId).delete()
           .catch(err => console.error(err));
       }
     });
-
   }
 
   ngOnInit(): void {
