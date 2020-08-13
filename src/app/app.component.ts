@@ -64,11 +64,14 @@ export class AppComponent implements OnInit {
     const roomsCollections = this.firestore.collection('rooms');
     const roomsQuerySnapshot = await roomsCollections.get().toPromise();
 
-    roomsQuerySnapshot.docs.forEach(room => {
-      // Expired Room
-      if (Number(room.data().expiresAt) < Date.now()) {
+    roomsQuerySnapshot.docs.forEach(roomSnapshot => {
 
-        const roomId: string = sha256(room.data().roomName + room.data().roomPassword).toString();
+      const room = roomSnapshot.data();
+
+      // Expired Room
+      if (Number(room.expiresAt) < Date.now()) {
+
+        const roomId: string = sha256(room.roomName + room.roomPassword).toString();
 
         roomsCollections.doc(roomId).delete()
           .catch(err => console.error(err));

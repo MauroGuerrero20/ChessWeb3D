@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import sha256 from 'crypto-js/sha256';
+import { GameRoomServiceService } from './game-room-service.service';
 
 interface GameRoom {
   players: string[];
@@ -15,7 +16,7 @@ interface GameRoom {
 })
 export class RoomSecurityGuard implements CanActivate {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private gameRoomService: GameRoomServiceService) { }
 
   getUserRooms(): GameRoom[] {
     const userRoomsStr: string = window.localStorage.getItem('userRooms') || '';
@@ -53,7 +54,7 @@ export class RoomSecurityGuard implements CanActivate {
 
     if (userRooms !== null && userRooms.length > 0) {
       for (const userRoom of userRooms) {
-        const userRoomUrlId: string = this.getGameRoomUrlId(userRoom);
+        const userRoomUrlId: string = this.gameRoomService.getRoomUrlId(userRoom);
 
         if (userRoomUrlId === gameRoomUrlId) {
           return true;
