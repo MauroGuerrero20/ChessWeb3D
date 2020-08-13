@@ -40,7 +40,7 @@ export class RoomSecurityGuard implements CanActivate {
     }
   }
 
-  getGameRoomUrlId(gameRoom: GameRoom): string {
+  getRoomUrlId(gameRoom: GameRoom): string {
     return sha256(sha256(gameRoom.roomName + gameRoom.roomPassword).toString()).toString();
   }
 
@@ -53,7 +53,7 @@ export class RoomSecurityGuard implements CanActivate {
 
     if (userRooms !== null && userRooms.length > 0) {
       for (const userRoom of userRooms) {
-        const userRoomUrlId: string = this.getGameRoomUrlId(userRoom);
+        const userRoomUrlId: string = this.getRoomUrlId(userRoom);
 
         if (userRoomUrlId === gameRoomUrlId) {
           return true;
