@@ -1,4 +1,4 @@
-import { Component, HostListener, ViewChild, ElementRef, OnInit, Host } from '@angular/core';
+import { Component, HostListener, ViewChild, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import {
   Scene,
   Engine,
@@ -7,14 +7,14 @@ import {
   HemisphericLight,
   Mesh,
   Tools,
-} from "babylonjs";
+} from 'babylonjs';
 
 @Component({
   selector: 'app-chessboard',
   templateUrl: './chessboard.component.html',
   styleUrls: ['./chessboard.component.scss']
 })
-export class ChessboardComponent implements OnInit {
+export class ChessboardComponent implements OnInit, AfterViewInit {
 
   @ViewChild('renderCanvas', { static: true })
   private canvasRef: ElementRef<HTMLCanvasElement>;
@@ -45,7 +45,7 @@ export class ChessboardComponent implements OnInit {
     return scene;
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.canvas = this.canvasRef.nativeElement;
 
     this.engine = new Engine(this.canvas, true, { preserveDrawingBuffer: true, stencil: true });
@@ -58,7 +58,7 @@ export class ChessboardComponent implements OnInit {
   }
 
   @HostListener('window:resize')
-  onResize() {
+  onResize(): void {
     this.engine.resize();
   }
 
