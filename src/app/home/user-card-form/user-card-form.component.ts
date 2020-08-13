@@ -57,6 +57,10 @@ export class UserCardFormComponent {
       const userRooms = userRoomsStr.split('|');
 
       for (const roomStr of userRooms) {
+        if (!roomStr) {
+          continue;
+        }
+
         const room: GameRoom = JSON.parse(roomStr);
 
         if (room.roomName === gameRoom.roomName &&
