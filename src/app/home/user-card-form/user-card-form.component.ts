@@ -57,7 +57,6 @@ export class UserCardFormComponent {
       const userRooms = userRoomsStr.split('|');
 
       for (const roomStr of userRooms) {
-
         if (!roomStr) {
           continue;
         }
