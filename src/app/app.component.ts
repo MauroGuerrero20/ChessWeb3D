@@ -18,6 +18,8 @@ export class AppComponent implements OnInit {
 
   title = 'ChessWeb3D';
 
+  // TODO: More expiration deletion logic to HomeComponent
+
   constructor(private firestore: AngularFirestore) { }
 
   deleteExpiredRoomBrowser(): void {

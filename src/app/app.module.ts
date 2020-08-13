@@ -20,6 +20,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RoomComponent } from './room/room.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { ChessboardComponent } from './room/chessboard/chessboard.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
     UserCardFormComponent,
     RoomComponent,
     ErrorPageComponent,
+    ChessboardComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),
