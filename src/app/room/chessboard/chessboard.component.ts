@@ -44,13 +44,14 @@ export class ChessboardComponent implements OnInit, AfterViewInit {
     const boardHeight = this.chessboardService.boardHeight;
     const totalTiles = this.chessboardService.totalTiles;
 
-    var chessboardMaterial = new StandardMaterial("chessboardMaterial", scene);
-	  chessboardMaterial.diffuseTexture = new Texture('https://upload.wikimedia.org/wikipedia/commons/d/d5/Chess_Board.svg', scene);
+    const chessboardMaterial = new StandardMaterial('chessboardMaterial', scene);
+    chessboardMaterial.diffuseTexture = new Texture(
+      'https://upload.wikimedia.org/wikipedia/commons/d/d5/Chess_Board.svg', scene);
 
     const chessboardBox = MeshBuilder.CreateTiledBox('chessboardBox', options, scene);
     chessboardBox.material = chessboardMaterial;
 
-    return chessboardBox
+    return chessboardBox;
   }
 
   createScene(engine: Engine, canvas: HTMLCanvasElement): Scene {
@@ -68,7 +69,9 @@ export class ChessboardComponent implements OnInit, AfterViewInit {
     light.intensity = 0.7;
 
     const sphereMaterial = new StandardMaterial('sphereMaterial', scene);
-    sphereMaterial.diffuseTexture =  new Texture('https://d33wubrfki0l68.cloudfront.net/1ae878f94021e932ba1a581038214311db59613a/835df/img/resources/textures_thumbs/albedo.png.jpg', scene);
+    sphereMaterial.diffuseTexture = new Texture(
+      'https://d33wubrfki0l68.cloudfront.net/1ae878f94021e932ba1a581038214311db59613a/835df' +
+      '/img/resources/textures_thumbs/albedo.png.jpg', scene);
 
     const sphere: Mesh = Mesh.CreateSphere('sphere1', 16, 2, scene, false, Mesh.FRONTSIDE);
     sphere.material = sphereMaterial;
