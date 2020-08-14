@@ -57,16 +57,18 @@ export class ChessboardComponent implements OnInit, AfterViewInit {
 
     const scene: Scene = new Scene(engine);
 
-    const camera: ArcRotateCamera = new ArcRotateCamera('camera1', Tools.ToRadians(180), Tools.ToRadians(60), 10, Vector3.Zero(), scene);
+    const camera: ArcRotateCamera = new ArcRotateCamera('camera1', Tools.ToRadians(180), Tools.ToRadians(60), 15.55, Vector3.Zero(), scene);
     camera.lowerBetaLimit = 0;
     camera.upperBetaLimit = Tools.ToRadians(70);
+    camera.lowerRadiusLimit = 5;
+    camera.upperRadiusLimit = 25;
     camera.attachControl(canvas, true);
 
     const light: HemisphericLight = new HemisphericLight('light1', new Vector3(0, 1, 0), scene);
     light.intensity = 0.7;
 
     const sphere: Mesh = Mesh.CreateSphere('sphere1', 16, 2, scene, false, Mesh.FRONTSIDE);
-    sphere.position.y = 1;
+    sphere.position.y = 3;
 
     const ground = this.createChesboardGround(scene);
 
