@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Mesh } from 'babylonjs';
 
 @Injectable({
   providedIn: 'root'
@@ -7,22 +8,15 @@ export class ChessboardServiceService {
 
   constructor() { }
 
-  groundOptions = {
-      xmin: -3,
-      zmin: -3,
-      xmax: 3,
-      zmax: 3,
-      subdivtions: {
-        w: 8,
-        h: 8,
-      },
-      precision: {
-        w: 2,
-        h: 2,
-      },
-    };
+  boardOptions =  {
+    width: 16,
+    height: 1,
+    depth: 16,
+    tileWidth: 16,
+    tileHeight: 16,
+  };
 
-    boardWidth = this.groundOptions.subdivtions.w;
-    boardHeight = this.groundOptions.subdivtions.h;
+    boardWidth = this.boardOptions.width;
+    boardHeight = this.boardOptions.height;
     totalTiles = this.boardWidth * this.boardHeight;
 }

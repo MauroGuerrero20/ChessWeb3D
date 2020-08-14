@@ -37,67 +37,45 @@ export class ChessboardComponent implements OnInit, AfterViewInit {
 
   createChesboardGround(scene: Scene): Mesh {
 
-    // Tited Ground Options
-    const options = this.chessboardService.groundOptions;
+    // Chessboard Options
+    const options = this.chessboardService.boardOptions;
 
     const boardWidth = this.chessboardService.boardWidth;
     const boardHeight = this.chessboardService.boardHeight;
     const totalTiles = this.chessboardService.totalTiles;
 
-    const chessboardGround: Mesh = Mesh.CreateTiledGround(
-      'chessboardGround',
-      options.xmin,
-      options.zmin,
-      options.xmax,
-      options.zmax,
-      options.subdivtions,
-      options.precision,
-      scene
-    );
+    const chessboardMaterial = new StandardMaterial('chessboardMaterial', scene);
+    chessboardMaterial.diffuseTexture = new Texture(
+      'https://upload.wikimedia.org/wikipedia/commons/d/d5/Chess_Board.svg', scene);
 
-    const whiteMaterial = new StandardMaterial('whiteMaterialBoard', scene);
-    whiteMaterial.diffuseColor = Color3.White();
+    const chessboardBox = MeshBuilder.CreateTiledBox('chessboardBox', options, scene);
+    chessboardBox.material = chessboardMaterial;
 
-    const blackMaterial = new StandardMaterial('blackMaterialBoard', scene);
-    blackMaterial.diffuseColor = Color3.Black();
-
-    const multiMaterial = new MultiMaterial('multiMaterialBoard', scene);
-    multiMaterial.subMaterials.push(whiteMaterial);
-    multiMaterial.subMaterials.push(blackMaterial);
-
-    chessboardGround.material = multiMaterial;
-
-    const verticesCount = chessboardGround.getTotalVertices();
-    const tileIndicesLength = chessboardGround.getIndices().length / totalTiles;
-
-    chessboardGround.subMeshes = [];
-    let base = 0;
-    for (let row = 0; row < boardHeight; row++) {
-      for (let col = 0; col < boardWidth; col++) {
-        chessboardGround.subMeshes.push(
-          new SubMesh(
-            Number(xor(row % 2, col % 2)), 0, verticesCount, base, tileIndicesLength, chessboardGround));
-        base += tileIndicesLength;
-      }
-    }
-
-    return chessboardGround;
+    return chessboardBox;
   }
 
   createScene(engine: Engine, canvas: HTMLCanvasElement): Scene {
 
     const scene: Scene = new Scene(engine);
 
-    const camera: ArcRotateCamera = new ArcRotateCamera('camera1', Tools.ToRadians(180), Tools.ToRadians(60), 10, Vector3.Zero(), scene);
+    const camera: ArcRotateCamera = new ArcRotateCamera('camera1', Tools.ToRadians(180), Tools.ToRadians(60), 15.55, Vector3.Zero(), scene);
     camera.lowerBetaLimit = 0;
     camera.upperBetaLimit = Tools.ToRadians(70);
+    camera.lowerRadiusLimit = 5;
+    camera.upperRadiusLimit = 25;
     camera.attachControl(canvas, true);
 
     const light: HemisphericLight = new HemisphericLight('light1', new Vector3(0, 1, 0), scene);
     light.intensity = 0.7;
 
+    const sphereMaterial = new StandardMaterial('sphereMaterial', scene);
+    sphereMaterial.diffuseTexture = new Texture(
+      'https://d33wubrfki0l68.cloudfront.net/1ae878f94021e932ba1a581038214311db59613a/835df' +
+      '/img/resources/textures_thumbs/albedo.png.jpg', scene);
+
     const sphere: Mesh = Mesh.CreateSphere('sphere1', 16, 2, scene, false, Mesh.FRONTSIDE);
-    sphere.position.y = 1;
+    sphere.material = sphereMaterial;
+    sphere.position.y = 3;
 
     const ground = this.createChesboardGround(scene);
 
