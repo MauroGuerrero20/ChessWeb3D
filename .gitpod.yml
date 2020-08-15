@@ -1,6 +1,0 @@
-tasks:
-  - command: echo y | npm install -g @angular/cli; npm install
-
-vscode:
-  extensions:
-    - Angular.ng-template@0.1000.7:0IUEFuDEuIrPL5WlPLev9A==
